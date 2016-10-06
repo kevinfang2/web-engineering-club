@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Pixi.js tutorial - Drawing Shapes</title>
+
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            background-color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+	<script src="pixi.min.js"></script>
+	<script>
+		var renderer = PIXI.autoDetectRenderer(720, 364, { backgroundColor: 0xFFFFFF, antialias: true });
+		document.body.appendChild(renderer.view);
+
+		var stage = new PIXI.Container();
+		var graphics = new PIXI.Graphics();
+
+
+		graphics.beginFill(0xff0000); 
+		graphics.drawRect(100, 100, 100, 100); 
+		graphics.endFill();
+
+		stage.addChild(graphics);
+
+		animate();
+
+		function animate() {
+		    //Render the stage
+		    renderer.render(stage);
+		    requestAnimationFrame(animate);
+		}
+	</script>
+</body>
+</html>
