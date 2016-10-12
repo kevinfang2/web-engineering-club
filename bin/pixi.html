@@ -16,26 +16,51 @@
 <body>
 	<script src="pixi.min.js"></script>
 	<script>
-		var renderer = PIXI.autoDetectRenderer(720, 364, { backgroundColor: 0xFFFFFF, antialias: true });
+		var renderer = PIXI.autoDetectRenderer(1500, 800, { backgroundColor: 0xFFFFFF, antialias: true });
 		document.body.appendChild(renderer.view);
 
 		var stage = new PIXI.Container();
 		var graphics = new PIXI.Graphics();
 
 
-		graphics.beginFill(0xff0000); 
-		graphics.drawRect(100, 100, 100, 100); 
-		graphics.endFill();
+		
+		
+		var x = 0;
+		var y = 0;
 
 		stage.addChild(graphics);
 
 		animate();
 
 		function animate() {
-		    //Render the stage
-		    renderer.render(stage);
-		    requestAnimationFrame(animate);
-		}
+			x = x + 10;
+			y = y + 5;
+			graphics.clear();
+
+			graphics.beginFill(0xff0000);	
+			graphics.drawRect(x - 50, y - 10, 50, 50);
+			graphics.endFill();
+
+
+
+			// if(graphics.position.x < 1000){
+	    	    // graphics.position.x = graphics.position.x + 10;
+	    	// }
+
+	    	// if(graphics.position.y < 500){
+	    		// graphics.position.y = graphics.position.y + 10;
+	    	// }
+
+  			renderer.render(stage);
+  			requestAnimationFrame(animate);
+	    }
+    
+
+		// function animate() {
+		//     //Render the stage
+		//     renderer.render(stage);
+		//     requestAnimationFrame(animate);
+		// }
 	</script>
 </body>
 </html>
