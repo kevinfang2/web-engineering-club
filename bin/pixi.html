@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Pixi.js tutorial - Drawing Shapes</title>
+    <title>Pixi.js tutorial - Moving Shapes</title>
 
     <style>
         body {
@@ -21,9 +21,6 @@
 
 		var stage = new PIXI.Container();
 		var graphics = new PIXI.Graphics();
-
-
-		
 		
 		var x = 0;
 		var y = 0;
@@ -32,19 +29,105 @@
 
 		animate();
 
+		var right = true;
+		var theta = 45;
+
 		function animate() {
-			x = x + 10;
-			y = y + 5;
+			if (right) {
+				x = x;
+			} else {
+				x = x - 10;
+			}
+
+			if (x > 1600) {
+				right = false;
+			}
+			if (x < 0) {
+				right = true;
+			}
+
 			graphics.clear();
 
-			graphics.beginFill(0xff0000);	
-			graphics.drawRect(x - 50, y - 10, 50, 50);
+			// graphics.beginFill(0xffffff * Math.random());	
+			graphics.beginFill(0xff0000);
+			graphics.drawRect(x, y, 50, 50);
 			graphics.endFill();
 
   			renderer.render(stage);
   			requestAnimationFrame(animate);
 	    }
     
+    	function keyboard(keyCode) {
+			var key = {};
+			key.code = keyCode;
+			key.isDown = false;
+			key.isUp = true;
+			key.press = undefined;
+			key.release = undefined;
+			  //The `downHandler`
+			key.downHandler = function(event) {
+			    if (event.keyCode === key.code) {
+			    	if (key.isUp && key.press) key.press();
+			      		key.isDown = true;
+			      		key.isUp = false;
+			    	}
+			    event.preventDefault();
+			};
+
+			  //The `upHandler`
+			key.upHandler = function(event) {
+			    if (event.keyCode === key.code) {
+			      	if (key.isDown && key.release) key.release();
+			      		key.isDown = false;
+			      		key.isUp = true;
+			    	}
+			    event.preventDefault();
+			};
+
+
+
+			  //Attach event listeners
+			window.addEventListener(
+			    "keydown", key.downHandler.bind(key), false
+			);
+		  window.addEventListener(
+			    "keyup", key.upHandler.bind(key), false
+			);
+	  		return key;
+		}
+
+		var aKey = keyboard(65);
+		aKey.press = function() {
+			console.log("a pressed")
+		};
+		aKey.release = function() {
+			console.log("a released")
+		};
+
+		var wKey = keyboard(87);
+		wKey.press = function() {
+			console.log("w pressed")
+		};
+		wKey.release = function() {
+			console.log("w released")
+		};
+
+		var dKey = keyboard(68);
+		dKey.press = function() {
+			console.log("d pressed")
+		};
+		dKey.release = function() {
+			console.log("d released")
+		};
+
+		var sKey = keyboard(83);
+		sKey.press = function() {
+			console.log("s pressed")
+		};
+		sKey.release = function() {
+			console.log("s released")
+		};
+
 	</script>
 </body>
 </html>
